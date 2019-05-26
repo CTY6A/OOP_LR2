@@ -10,10 +10,10 @@
         {
             for (int i = 0; i < CommonList.Objects.Count; i++)
             {
-                Object obj = CommonList.Objects[i];
-                if (obj is Catalog && ((Catalog)obj).Filter == this)
+                Object CurrentObject = CommonList.Objects[i];
+                if (CurrentObject is Catalog && ((Catalog)CurrentObject).Filter == this)
                 {
-                    ((Catalog)obj).Filter = null;
+                    ((Catalog)CurrentObject).Filter = null;
                 }
             }
         }
@@ -46,11 +46,11 @@
 
     public class HotGoods : Filter
     {
-        [LabelAttribute("Минимальная размер скидки")]
+        [LabelAttribute("Минимальный размер скидки")]
         public uint MinAmountOfDiscount { get; set; }
 
         [LabelAttribute("Время действия скидки")]
-        public PromotionTime promotionTime { get; set; }
+        public PromotionTime PromotionTime { get; set; }
     }
 
     public class ElectronicsFilter : Filter

@@ -37,12 +37,12 @@
 
         public Object CreateObject()
         {
-            HotGoods hotGoods = new HotGoods
+            HotGoods HotGoods = new HotGoods
             {
-                promotionTime = new PromotionTime()
+                PromotionTime = new PromotionTime()
             };
 
-            return hotGoods;
+            return HotGoods;
         }
 
         public override string ToString()

@@ -11,120 +11,117 @@ namespace OOP_2
             InitializeComponent();
         }
         public ApplicationDataContext CommonList;
-        public void CreateCatalog(uint NumOfGoods, string Name)
+        public void CreateCatalog(uint NumOfGoods, Filter Filter, string Name)
         {
-            Catalog obj = new Catalog
+            Catalog CurrentObject = new Catalog
             {
                 NumOfGoods = NumOfGoods,
+                Filter = Filter,
                 Name = Name
             };
-            CommonList.CallObjectCreatedEvent(CommonList.Objects, obj);
+            CommonList.CallObjectCreatedEvent(CommonList.Objects, CurrentObject);
         }
-        public void CreateHotGoods(uint numOfItemsDisplayed, string name, uint minAmountOfDiscount, uint days, uint hours, uint minutes, uint seconds)
+        public void CreateHotGoods(uint NumOfItemsDisplayedMemory, string Name, uint MinAmountOfDiscount, uint Days, uint Hours, uint Minutes, uint Seconds)
         {
-            HotGoods obj = new HotGoods
+            HotGoods CurrentObject = new HotGoods
             {
-                NumOfItemsDisplayed = numOfItemsDisplayed,
-                Name = name,
-                MinAmountOfDiscount = minAmountOfDiscount,
-                promotionTime = new PromotionTime()
+                NumOfItemsDisplayed = NumOfItemsDisplayedMemory,
+                Name = Name,
+                MinAmountOfDiscount = MinAmountOfDiscount,
+                PromotionTime = new PromotionTime()
                 {
-                    Days = days,
-                    Hours = hours,
-                    Minutes = minutes,
-                    Seconds = seconds
+                    Days = Days,
+                    Hours = Hours,
+                    Minutes = Minutes,
+                    Seconds = Seconds
                 },
             };
-            CommonList.CallObjectCreatedEvent(CommonList.Objects, obj);
+            CommonList.CallObjectCreatedEvent(CommonList.Objects, CurrentObject);
         }
 
-        public void CreateComputerFilter(uint numOfItemsDisplayed, string name, uint minVideoMemory, bool opticalDriveAvailability, uint minDiskRotationSpeed)
+        public void CreateComputerFilter(uint NumOfItemsDisplayed, string Name, uint MinVideoMemory, bool opticalDriveAvailability, uint minDiskRotationSpeed)
         {
-            ComputerFilter obj = new ComputerFilter
+            ComputerFilter CurrentObject = new ComputerFilter
             {
-                NumOfItemsDisplayed = numOfItemsDisplayed,
-                Name = name,
-                MinVideoMemory = minVideoMemory,
+                NumOfItemsDisplayed = NumOfItemsDisplayed,
+                Name = Name,
+                MinVideoMemory = MinVideoMemory,
                 OpticalDriveAvailability = opticalDriveAvailability,
                 MinDiskRotationSpeed = minDiskRotationSpeed
 
             };
-            CommonList.CallObjectCreatedEvent(CommonList.Objects, obj);
+            CommonList.CallObjectCreatedEvent(CommonList.Objects, CurrentObject);
         }
 
-        public void CreateTelephoneFilter(uint numOfItemsDisplayed, string name, uint minNumOfSIMCards, uint minNumOfCameras, bool miniJackAvailability)
+        public void CreateTelephoneFilter(uint NumOfItemsDisplayedMemory, string Name, uint MinNumOfSIMCards, uint MinNumOfCameras, bool MiniJackAvailability)
         {
-            TelephoneFilter obj = new TelephoneFilter
+            TelephoneFilter CurrentObject = new TelephoneFilter
             {
-                NumOfItemsDisplayed = numOfItemsDisplayed,
-                Name = name,
-                MinNumOfSIMCards = minNumOfSIMCards,
-                MinNumOfCameras = minNumOfCameras,
-                MiniJackAvailability = miniJackAvailability
+                NumOfItemsDisplayed = NumOfItemsDisplayedMemory,
+                Name = Name,
+                MinNumOfSIMCards = MinNumOfSIMCards,
+                MinNumOfCameras = MinNumOfCameras,
+                MiniJackAvailability = MiniJackAvailability
             };
-            CommonList.CallObjectCreatedEvent(CommonList.Objects, obj);
+            CommonList.CallObjectCreatedEvent(CommonList.Objects, CurrentObject);
         }
 
-        public void CreateRefrigeratorFilter(uint numOfItemsDisplayed, string name, bool smart, bool bulky, bool builtInAvailability, uint minNumOfFunctions,
-            uint minNumOfBoxes, uint minNumOfShelves, uint minNumOfCompressors)
+        public void CreateRefrigeratorFilter(uint NumOfItemsDisplayedMemory, string Name, bool Smart, bool Bulky, bool BuiltInAvailability, uint MinNumOfFunctions,
+            uint MinNumOfBoxes, uint MinNumOfShelves, uint MinNumOfCompressors)
         {
-            RefrigeratorFilter obj = new RefrigeratorFilter
+            RefrigeratorFilter CurrentObject = new RefrigeratorFilter
             {
-                NumOfItemsDisplayed = numOfItemsDisplayed,
-                Name = name,
-                Smart = smart,
-                Bulky = bulky,
-                BuiltInAvailability = builtInAvailability,
-                MinNumOfFunctions = minNumOfFunctions,
-                MinNumOfBoxes = minNumOfBoxes,
-                MinNumOfShelves = minNumOfShelves,
-                MinNumOfCompressors = minNumOfCompressors
+                NumOfItemsDisplayed = NumOfItemsDisplayedMemory,
+                Name = Name,
+                Smart = Smart,
+                Bulky = Bulky,
+                BuiltInAvailability = BuiltInAvailability,
+                MinNumOfFunctions = MinNumOfFunctions,
+                MinNumOfBoxes = MinNumOfBoxes,
+                MinNumOfShelves = MinNumOfShelves,
+                MinNumOfCompressors = MinNumOfCompressors
             };
-            CommonList.CallObjectCreatedEvent(CommonList.Objects, obj);
+            CommonList.CallObjectCreatedEvent(CommonList.Objects, CurrentObject);
         }
 
-        public void CreateWashingFilter(uint numOfItemsDisplayed, string name, bool smart, bool bulky, bool builtInAvailability, uint minNumOfFunctions,
-            uint minSpinSpeed, bool steamTreatmentAvailability, uint minNumOfPrograms)
+        public void CreateWashingFilter(uint NumOfItemsDisplayedMemory, string Name, bool Smart, bool Bulky, bool BuiltInAvailability, uint MinNumOfFunctions,
+            uint MinSpinSpeed, bool SteamTreatmentAvailability, uint MinNumOfPrograms)
         {
-            WashingFilter obj = new WashingFilter
+            WashingFilter CurrentObject = new WashingFilter
             {
-                NumOfItemsDisplayed = numOfItemsDisplayed,
-                Name = name,
-                Smart = smart,
-                Bulky = bulky,
-                BuiltInAvailability = builtInAvailability,
-                MinNumOfFunctions = minNumOfFunctions,
-                MinSpinSpeed = minSpinSpeed,
-                SteamTreatmentAvailability = steamTreatmentAvailability,
-                MinNumOfPrograms = minNumOfPrograms
+                NumOfItemsDisplayed = NumOfItemsDisplayedMemory,
+                Name = Name,
+                Smart = Smart,
+                Bulky = Bulky,
+                BuiltInAvailability = BuiltInAvailability,
+                MinNumOfFunctions = MinNumOfFunctions,
+                MinSpinSpeed = MinSpinSpeed,
+                SteamTreatmentAvailability = SteamTreatmentAvailability,
+                MinNumOfPrograms = MinNumOfPrograms
             };
-            CommonList.CallObjectCreatedEvent(CommonList.Objects, obj);
+            CommonList.CallObjectCreatedEvent(CommonList.Objects, CurrentObject);
         }
 
-        public void CreateOvenFilter(uint numOfItemsDisplayed, string name, bool smart, bool bulky, bool builtInAvailability, uint minNumOfFunctions,
-            bool grillAvailability)
+        public void CreateOvenFilter(uint NumOfItemsDisplayedMemory, string Name, bool Smart, bool Bulky, bool BuiltInAvailability, uint MinNumOfFunctions,
+            bool GrillAvailability)
         {
-            OvenFilter obj = new OvenFilter
+            OvenFilter CurrentObject = new OvenFilter
             {
-                NumOfItemsDisplayed = numOfItemsDisplayed,
-                Name = name,
-                Smart = smart,
-                Bulky = bulky,
-                BuiltInAvailability = builtInAvailability,
-                MinNumOfFunctions = minNumOfFunctions,
-                GrillAvailability = grillAvailability
+                NumOfItemsDisplayed = NumOfItemsDisplayedMemory,
+                Name = Name,
+                Smart = Smart,
+                Bulky = Bulky,
+                BuiltInAvailability = BuiltInAvailability,
+                MinNumOfFunctions = MinNumOfFunctions,
+                GrillAvailability = GrillAvailability
             };
-            CommonList.CallObjectCreatedEvent(CommonList.Objects, obj);
+            CommonList.CallObjectCreatedEvent(CommonList.Objects, CurrentObject);
         }
 
 
 
         public void CreateSomeObjects(ApplicationDataContext CommonList)
         {
-            CreateCatalog(487059, "Catalog 1");
-            CreateCatalog(609271, "Catalog 2");
-            CreateCatalog(376948, "Catalog 3");
-
             CreateHotGoods(50, "HotGoods 1", 50, 3, 0, 0, 0);
             CreateHotGoods(50, "HotGoods 2", 90, 0, 5, 0, 0);
             CreateHotGoods(50, "HotGoods 3", 30, 30, 0, 0, 0);
@@ -140,6 +137,10 @@ namespace OOP_2
             CreateWashingFilter(30, "Washing Filter 1", false, false, false, 2, 3000, false, 15);
 
             CreateOvenFilter(25, "Oven Filter 1", true, true, true, 2, true);
+
+            CreateCatalog(487059, (Filter)CommonList.Objects[0], "Catalog 1");
+            CreateCatalog(609271, (Filter)CommonList.Objects[1], "Catalog 2");
+            CreateCatalog(376948, (Filter)CommonList.Objects[2], "Catalog 3");
         }
 
 
@@ -168,9 +169,9 @@ namespace OOP_2
         }
         private void ComboBoxCreate_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            IFactory factory = (IFactory)ComboBoxCreate.SelectedItem;
-            Object obj = factory.CreateObject();
-            obj.Update(CommonList, true);
+            IFactory Factory = (IFactory)ComboBoxCreate.SelectedItem;
+            Object CurrentObject = Factory.CreateObject();
+            CurrentObject.Update(CommonList, true);
         }
         private void ButtonDeleteObject_Click(object sender, EventArgs e)
         {

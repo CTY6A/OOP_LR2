@@ -12,34 +12,34 @@ namespace OOP_2
             ComboBoxObjects.Items.Clear();
             ComboBoxObjects.Items.AddRange(Objects.ToArray());
         }
-        public delegate void ObjectCreatedDelegate(List<Object> Objects, Object obj);
-        public event ObjectCreatedDelegate ObjectCreatedEvent;
-        public void CallObjectCreatedEvent(List<Object> Objects, Object obj)
-        {          
-            ObjectCreatedEvent(Objects, obj);
-        }
-        public void AddObjectToList(List<Object> Objects, Object obj)
+        public void AddObjectToList(List<Object> Objects, Object CurrentObject)
         {
-            Objects.Add(obj);
+            Objects.Add(CurrentObject);
         }
-        public void AddObjectToComboBox(List<Object> Objects, Object obj)
+        public void AddObjectToComboBox(List<Object> Objects, Object CurrentObject)
         {
-            this.ComboBoxObjects.Items.Add(obj);
+            ComboBoxObjects.Items.Add(CurrentObject);
         }
-        public delegate void ObjectDeletedDelegate(List<Object> Objects, Object obj);
-        public event ObjectDeletedDelegate ObjectDeletedEvent;
-        public void CallObjectDeletedEvent(List<Object> Objects, Object obj)
+        public void DeleteObjectFromList(List<Object> Objects, Object CurrentObject)
         {
-            ObjectDeletedEvent(Objects, obj);
+            Objects.Remove(CurrentObject);
         }
-        public void DeleteObjectFromList(List<Object> Objects, Object obj)
+        public void DeleteObjectFromComboBox(List<Object> Objects, Object CurrentObject)
         {
-            Objects.Remove(obj);
-        }
-        public void DeleteObjectFromComboBox(List<Object> Objects, Object obj)
-        {
-            ComboBoxObjects.Items.Remove(obj);
+            ComboBoxObjects.Items.Remove(CurrentObject);
             ComboBoxObjects.Text = "";
+        }
+        public delegate void ObjectCreatedDelegate(List<Object> Objects, Object CurrentObject);
+        public event ObjectCreatedDelegate ObjectCreatedEvent;
+        public void CallObjectCreatedEvent(List<Object> Objects, Object CurrentObject)
+        {
+            ObjectCreatedEvent(Objects, CurrentObject);
+        }
+        public delegate void ObjectDeletedDelegate(List<Object> Objects, Object CurrentObject);
+        public event ObjectDeletedDelegate ObjectDeletedEvent;
+        public void CallObjectDeletedEvent(List<Object> Objects, Object CurrentObject)
+        {
+            ObjectDeletedEvent(Objects, CurrentObject);
         }
     }
 }

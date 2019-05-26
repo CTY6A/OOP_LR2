@@ -6,48 +6,43 @@ namespace OOP_2
 {
     public static class Controls
     {        
-        public static Form AddForm(Object obj, int controlWidth, int controlHeight)
+        public static Form AddForm(Object CurrentObject, int ControlWidth, int ControlHeight)
         {
-            Form form = new Form
+            return new Form
             {
-                ClientSize = new Size(controlWidth * 2, (obj.GetType().GetProperties().Count() * controlHeight * 2) +
-                (obj.GetType().GetFields().Count() * controlHeight * 2) + (controlHeight * 2))
+                ClientSize = new Size(ControlWidth * 2, CurrentObject.GetType().GetProperties().Count() * ControlHeight * 2  + ControlHeight)
             };
-            return form;
         }
-        public static void AddLabel(Form form, int top, int left, int controlWidth, int controlHeight, string text)
+        public static void AddLabel(Form CurrentForm, int Top, int Left, int ControlWidth, int ControlHeight, string Text)
         {
-            Label label = new Label { Top = top, Left = left, Width = controlWidth, Height = controlHeight, Text = text };
-            form.Controls.Add(label);
+            CurrentForm.Controls.Add(new Label { Top = Top, Left = Left, Width = ControlWidth, Height = ControlHeight, Text = Text });
         }
-        public static void AddTextBox(Form form, int top, int left, int controlWidth, int controlHeight, string text)
+        public static void AddTextBox(Form CurrentForm, int Top, int Left, int ControlWidth, int ControlHeight, string Text)
         {
-            TextBox textBox = new TextBox { Top = top, Left = left, Width = controlWidth, Height = controlHeight, Text = text };
-            form.Controls.Add(textBox);
+            CurrentForm.Controls.Add(new TextBox { Top = Top, Left = Left, Width = ControlWidth, Height = ControlHeight, Text = Text });
         }
-        public static void AddCheckBox(Form form, int top, int left, int controlWidth, int controlHeight, bool Availability)
+        public static void AddCheckBox(Form CurrentForm, int Top, int Left, int ControlWidth, int ControlHeight, bool Availability)
         {
-            CheckBox textBox = new CheckBox { Top = top, Left = left, Width = controlWidth, Height = controlHeight, Checked = Availability };
-            form.Controls.Add(textBox);
+            CurrentForm.Controls.Add(new CheckBox { Top = Top, Left = Left, Width = ControlWidth, Height = ControlHeight, Checked = Availability });
         }
-        public static void AddComboBox(Form form, int top, int left, int controlWidth, int controlHeight, object[] elements, string text)
+        public static void AddComboBox(Form CurrentForm, int Top, int Left, int ControlWidth, int ControlHeight, object[] Elements, string Text)
         {
-            ComboBox comboBox = new ComboBox { Top = top, Left = left, Width = controlWidth, Height = controlHeight, Text = text };
-            comboBox.Items.AddRange(elements);
-            form.Controls.Add(comboBox);
+            ComboBox ComboBox = new ComboBox { Top = Top, Left = Left, Width = ControlWidth, Height = ControlHeight, Text = Text, DropDownStyle = ComboBoxStyle.DropDownList};
+            ComboBox.Items.AddRange(Elements);
+            CurrentForm.Controls.Add(ComboBox);
         }
-        public static void AddComboBox(Form form, int top, int left, int controlWidth, int controlHeight, object[] elements, object selectedItem)
+        public static void AddComboBox(Form CurrentForm, int Top, int Left, int ControlWidth, int ControlHeight, object[] Elements, object SelectedItem)
         {
-            ComboBox comboBox = new ComboBox { Top = top, Left = left, Width = controlWidth, Height = controlHeight,
-                SelectedItem = selectedItem, Text = selectedItem?.ToString() };
-            comboBox.Items.AddRange(elements);
-            form.Controls.Add(comboBox);
+            ComboBox ComboBox = new ComboBox { Top = Top, Left = Left, Width = ControlWidth, Height = ControlHeight, DropDownStyle = ComboBoxStyle.DropDownList};
+            ComboBox.Items.AddRange(Elements);
+            ComboBox.SelectedItem = SelectedItem;
+            CurrentForm.Controls.Add(ComboBox);
         }
-        public static Button AddButton(Form form, int top, int left, int controlWidth, int controlHeight, string text)
+        public static Button AddButton(Form CurrentForm, int Top, int Left, int ControlWidth, int ControlHeight, string Text)
         {
-            Button button = new Button { Top = top, Left = left, Width = controlWidth, Height = controlHeight * 2, Text = text };
-            form.Controls.Add(button);
-            return button;
+            Button Button = new Button { Top = Top, Left = Left, Width = ControlWidth, Height = ControlHeight, Text = Text };
+            CurrentForm.Controls.Add(Button);
+            return Button;
         }
     }
 }

@@ -10,127 +10,104 @@ namespace OOP_2
     public class LabelAttribute : Attribute
     {
         public string LabelText { get; set; }
-
         public LabelAttribute(string Text)
         {
             LabelText = Text;
         }
     }
-
     public class InterconnectionTypeAttribute : Attribute
     {
         public string InterconnectionType { get; set; }
-
         public InterconnectionTypeAttribute(string Type)
         {
             InterconnectionType = Type;
         }
     }
-
-
     public class Object
     {
         public virtual void ObjectDeleted(ApplicationDataContext CommonList)
         {
-        }
-        
-        private readonly int ControlHeight = 15;
+        }        
+        private readonly int ControlHeight = 30;
         private readonly int ControlWidth = 150;
-        private void GetProperties(Form form, Object obj, ref int y, ApplicationDataContext CommonList)
+        private bool CompareTypes(Type InheritedType, Type BaseType)
         {
-            foreach (PropertyInfo property in obj.GetType().GetProperties())
+            while (InheritedType != BaseType && InheritedType != null)
             {
-                LabelAttribute attribute = property.GetCustomAttributes(true).OfType<LabelAttribute>().First();
-                Controls.AddLabel(form, y, 0, ControlWidth, ControlHeight, attribute.LabelText);
-                if (property.PropertyType.IsGenericType)
+                InheritedType = InheritedType.BaseType;
+            }
+            if (InheritedType == BaseType)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private void GetProperties(Form CurrentForm, Object CurrentObject, ref int TopIndent, ApplicationDataContext CommonList)
+        {
+            foreach (PropertyInfo CurrentProperty in CurrentObject.GetType().GetProperties())
+            {
+                LabelAttribute CurrentAttribute = CurrentProperty.GetCustomAttributes(true).OfType<LabelAttribute>().First();
+                Controls.AddLabel(CurrentForm, TopIndent, 0, ControlWidth, ControlHeight, CurrentAttribute.LabelText);
+                if (CurrentProperty.PropertyType == typeof(uint) || CurrentProperty.PropertyType == typeof(string))
                 {
-                    IList list = (IList)property.GetValue(obj);
-                    Controls.AddComboBox(form, y, ControlWidth, ControlWidth, ControlHeight, list.Cast<object>().ToArray(), "");
+                    Controls.AddTextBox(CurrentForm, TopIndent, ControlWidth, ControlWidth, ControlHeight, CurrentProperty.GetValue(CurrentObject)?.ToString());
                 }
-                else if (property.PropertyType.IsEnum)
+                else if (CurrentProperty.PropertyType == typeof(bool))
                 {
-                    Controls.AddComboBox(form, y, ControlWidth, ControlWidth, ControlHeight, property.PropertyType.GetEnumNames(), property.GetValue(obj).ToString());                   
+                    Controls.AddCheckBox(CurrentForm, TopIndent, ControlWidth, ControlWidth, ControlHeight, (bool)CurrentProperty.GetValue(CurrentObject));
                 }
-                else if (property.PropertyType == typeof(uint) || property.PropertyType == typeof(string))
+                else if (CurrentProperty.PropertyType.GetCustomAttributes(true).OfType<InterconnectionTypeAttribute>().First().InterconnectionType == "Композиция")
                 {
-                    Controls.AddTextBox(form, y, ControlWidth, ControlWidth, ControlHeight, property.GetValue(obj)?.ToString());
-                }
-                else if (property.PropertyType == typeof(bool))
-                {
-                    Controls.AddCheckBox(form, y, ControlWidth, ControlWidth, ControlHeight, (bool)property.GetValue(obj));
-                }
-                else if (property.PropertyType.GetCustomAttributes(true).OfType<InterconnectionTypeAttribute>().First().InterconnectionType == "Композиция")
-                {
-                    Button createObjectButton = Controls.AddButton(form, y, ControlWidth, ControlWidth, ControlHeight, "Посмотреть объект");
-                    createObjectButton.Click += (sender, e) =>
+                    Button CreateObjectButton = Controls.AddButton(CurrentForm, TopIndent, ControlWidth, ControlWidth, ControlHeight, "Посмотреть объект");
+                    CreateObjectButton.Click += (sender, e) =>
                     {
-                        Object newObj = (Object)property.GetValue(obj);
-                        newObj.Update(CommonList, false);
+                        Object NewObj = (Object)CurrentProperty.GetValue(CurrentObject);
+                        NewObj.Update(CommonList, false);
                     };
                 }
-                else if (property.PropertyType.GetCustomAttributes(true).OfType<InterconnectionTypeAttribute>().First().InterconnectionType == "Агрегация")
+                else if (CurrentProperty.PropertyType.GetCustomAttributes(true).OfType<InterconnectionTypeAttribute>().First().InterconnectionType == "Агрегация")
                 {
-                    List<Object> list = new List<Object>();
-                    foreach (Object element in CommonList.Objects)
+                    List<Object> CheckBoxList = new List<Object>();
+                    foreach (Object Element in CommonList.Objects)
                     {
-                        if ((element as Filter) != null)
+                        if (CompareTypes(Element.GetType(), CurrentProperty.PropertyType))
                         {
-                            list.Add(element);
+                            CheckBoxList.Add(Element);
                         }
                     }
-                    Controls.AddComboBox(form, y, ControlWidth, ControlWidth, ControlHeight, list.Cast<object>().ToArray(), property.GetValue(this));
+                    Controls.AddComboBox(CurrentForm, TopIndent, ControlWidth, ControlWidth, ControlHeight, CheckBoxList.Cast<object>().ToArray(), CurrentProperty.GetValue(this));
                 }
-                y += ControlHeight * 2;
+                TopIndent += ControlHeight * 2;
             }
         }
         public void Update(ApplicationDataContext CommonList, bool NeedToCreate)
         {           
-            Form form = Controls.AddForm(this, ControlWidth, ControlHeight);
-            int y = 0;
-            GetProperties(form, this, ref y, CommonList);
-            Button saveButton = Controls.AddButton(form, y, 0, ControlWidth, ControlHeight, "Сохранить");
-            saveButton.Click += (sender, e) =>
+            Form CurrentForm = Controls.AddForm(this, ControlWidth, ControlHeight);
+            int TopIndent = 0;
+            GetProperties(CurrentForm, this, ref TopIndent, CommonList);
+            Button SaveButton = Controls.AddButton(CurrentForm, TopIndent, 0, ControlWidth, ControlHeight, "Сохранить");
+            SaveButton.Click += (sender, e) =>
             {
                 int i = 1;
-                foreach (PropertyInfo property in this.GetType().GetProperties())
+                foreach (PropertyInfo CurrentProperty in GetType().GetProperties())
                 {
-                    if (property.PropertyType.IsEnum)
+                    if (CurrentProperty.PropertyType == typeof(uint) || CurrentProperty.PropertyType == typeof(string))
                     {
-                        property.SetValue(this, Enum.Parse(property.PropertyType, form.Controls[i].Text));                       
+                        CurrentProperty.SetValue(this, Convert.ChangeType(CurrentForm.Controls[i].Text, CurrentProperty.PropertyType));                        
                     }
-                    else if (property.PropertyType == typeof(uint) || property.PropertyType == typeof(string))
+                    else if (CurrentProperty.PropertyType == typeof(bool))
                     {
-                        property.SetValue(this, Convert.ChangeType(form.Controls[i].Text, property.PropertyType));                        
+                        CurrentProperty.SetValue(this, ((CheckBox)CurrentForm.Controls[i]).Checked); 
                     }
-                    else if (property.PropertyType == typeof(bool))
+                    else if (CurrentProperty.PropertyType.GetCustomAttributes(true).OfType<InterconnectionTypeAttribute>().First().InterconnectionType == "Агрегация")
                     {
-                        property.SetValue(this, Convert.ChangeType(((CheckBox)form.Controls[i]).Checked, property.PropertyType)); 
-                    }
-                    else if (!property.PropertyType.IsGenericType && property.PropertyType.GetCustomAttributes(true).OfType<InterconnectionTypeAttribute>().First().InterconnectionType == "Агрегация")
-                    {
-                        ComboBox comboBox = (ComboBox)form.Controls[i];
-                        if (comboBox.SelectedItem != null)
+                        ComboBox ComboBox = (ComboBox)CurrentForm.Controls[i];
+                        if (ComboBox.SelectedItem != null)
                         {
-                            if (property.GetValue(this) != null)
-                            {
-                                foreach (var el in property.PropertyType.GetProperties())
-                                {
-                                    if (el.PropertyType.IsGenericType)
-                                    {
-                                        IList list = (IList)el.GetValue(property.GetValue(this));
-                                        list.Remove(this);
-                                    }
-                                }
-                            }
-                            property.SetValue(this, comboBox.SelectedItem);
-                            foreach (var el in property.PropertyType.GetProperties())
-                            {
-                                if (el.PropertyType.IsGenericType)
-                                {
-                                    IList list = (IList)el.GetValue(comboBox.SelectedItem);
-                                    list.Add(this);
-                                }
-                            }
+                            CurrentProperty.SetValue(this, ComboBox.SelectedItem);
                         }
                     }
                     i += 2;
@@ -140,14 +117,14 @@ namespace OOP_2
                     CommonList.CallObjectCreatedEvent(CommonList.Objects, this);
                 }
                 CommonList.ComboBoxObjectsRefresh();
-                form.Close();
+                CurrentForm.Close();
             };
-            Button cancelButton = Controls.AddButton(form, y, ControlWidth, ControlWidth, ControlHeight, "Отмена");
-            cancelButton.Click += (sender, e) =>
+            Button CancelButton = Controls.AddButton(CurrentForm, TopIndent, ControlWidth, ControlWidth, ControlHeight, "Отмена");
+            CancelButton.Click += (sender, e) =>
             {
-                form.Close();
+                CurrentForm.Close();
             };
-            form.Show();
+            CurrentForm.Show();
         }
     }   
 }

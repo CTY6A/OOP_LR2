@@ -24,3 +24,16 @@ C:\Users\User\Desktop\OOP_2\WindowsFormsApp1\obj\Debug\OOP_2.csproj.CoreCompileI
 C:\Users\User\Desktop\OOP_2\WindowsFormsApp1\obj\Debug\OOP_2.csproj.CopyComplete
 C:\Users\User\Desktop\OOP_2\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
 C:\Users\User\Desktop\OOP_2\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
+C:\Users\User\Desktop\OOP_LR2\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe.config
+C:\Users\User\Desktop\OOP_LR2\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe
+C:\Users\User\Desktop\OOP_LR2\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.pdb
+C:\Users\User\Desktop\OOP_LR2\WindowsFormsApp1\bin\Debug\Newtonsoft.Json.dll
+C:\Users\User\Desktop\OOP_LR2\WindowsFormsApp1\bin\Debug\Newtonsoft.Json.xml
+C:\Users\User\Desktop\OOP_LR2\WindowsFormsApp1\obj\Debug\OOP_2.csprojAssemblyReference.cache
+C:\Users\User\Desktop\OOP_LR2\WindowsFormsApp1\obj\Debug\OOP_2.FormMain.resources
+C:\Users\User\Desktop\OOP_LR2\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Properties.Resources.resources
+C:\Users\User\Desktop\OOP_LR2\WindowsFormsApp1\obj\Debug\OOP_2.csproj.GenerateResource.cache
+C:\Users\User\Desktop\OOP_LR2\WindowsFormsApp1\obj\Debug\OOP_2.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\OOP_LR2\WindowsFormsApp1\obj\Debug\OOP_2.csproj.CopyComplete
+C:\Users\User\Desktop\OOP_LR2\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
+C:\Users\User\Desktop\OOP_LR2\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
